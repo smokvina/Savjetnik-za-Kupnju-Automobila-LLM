@@ -1,0 +1,39 @@
+
+<div class="flex items-start gap-4 my-4" [class.flex-row-reverse]="isUser()">
+  <!-- Avatar -->
+  <div
+    class="flex items-center justify-center h-10 w-10 rounded-full flex-shrink-0"
+    [class.bg-indigo-500]="isUser()"
+    [class.bg-gray-700]="!isUser()"
+  >
+    @if (isUser()) {
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-indigo-100" viewBox="0 0 20 20" fill="currentColor">
+        <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+      </svg>
+    } @else {
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-300" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+        <path d="M10 16.5l-3 -3l3 -3" />
+        <path d="M14 7.5l3 3l-3 3" />
+        <path d="M12 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+        <path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" />
+      </svg>
+    }
+  </div>
+
+  <!-- Message Bubble -->
+  <div
+    class="relative max-w-xl px-4 py-3 rounded-lg shadow-md"
+    [class.bg-indigo-600]="isUser()"
+    [class.bg-gray-800]="!isUser()"
+    [class.text-white]="isUser()"
+    [class.text-gray-200]="!isUser()"
+  >
+    @if (isUser()) {
+      <p class="text-sm">{{ message().content }}</p>
+    } @else {
+      <!-- Using a div for markdown content to allow block elements -->
+      <div class="prose prose-sm prose-invert" [innerHTML]="message().content | markdown"></div>
+    }
+  </div>
+</div>

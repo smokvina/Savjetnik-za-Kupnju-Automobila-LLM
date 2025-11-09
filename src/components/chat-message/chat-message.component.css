@@ -1,0 +1,26 @@
+
+/* Tailwind's prose plugin doesn't always apply inside Angular components perfectly.
+   This ensures the tables generated from markdown look good. */
+:host ::ng-deep .prose table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+:host ::ng-deep .prose th,
+:host ::ng-deep .prose td {
+  border: 1px solid #4b5563; /* bg-gray-600 */
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+}
+
+:host ::ng-deep .prose th {
+  background-color: #374151; /* bg-gray-700 */
+  font-weight: bold;
+}
+
+:host ::ng-deep .prose h3 {
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
+}
