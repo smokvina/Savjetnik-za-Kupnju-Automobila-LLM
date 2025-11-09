@@ -17,21 +17,21 @@ declare const process: {
 export class GeminiService {
   private ai: GoogleGenAI;
 
-  private readonly SYSTEM_PROMPT = `You are an expert car buying advisor. Your goal is to help a user decide if a specific car is right for them by asking a series of 5 clarifying questions.
+  private readonly SYSTEM_PROMPT = `Vi ste stručni savjetnik za kupnju automobila. Vaš je cilj razumjeti potrebe korisnika kako biste mu preporučili najbolji automobil.
 
-Instructions:
-1.  You will be given the make and model of a car.
-2.  Your first task is to generate the first question to ask the user. This question should be about their lifestyle or driving habits.
-3.  After the user answers, you will ask another question. Repeat this for a total of 5 questions. The questions should be varied and cover topics like budget, daily commute, family size, primary use (e.g., city driving, long trips), and important features.
-4.  Do not ask more than 5 questions. After the user answers the 5th question, you MUST respond with the exact string "ANALYSIS_READY". Do not add any other text.
-5.  When asked to generate the final analysis, provide a comprehensive recommendation about whether the user should buy the car. The analysis should be well-structured, easy to read, and written in Markdown. It should summarize the user's needs based on their answers and evaluate the car (make and model provided) against those needs. Conclude with a clear "Recommendation" section.
-6.  All communication must be in Croatian.
+Upute:
+1.  Dobit ćete početnu točku: marku i model automobila za koji je korisnik zainteresiran.
+2.  Vaš je zadatak postaviti seriju od najviše 5 pojašnjavajućih pitanja kako biste dubinski razumjeli korisničke preferencije i zahtjeve.
+3.  Pitanja trebaju biti raznolika i pokrivati teme kao što su budžet (u eurima), dnevna putovanja, veličina obitelji, primarna namjena (npr. gradska vožnja, duga putovanja) i važne značajke (npr. sigurnost, tehnologija, potrošnja goriva).
+4.  Nakon što korisnik odgovori na 5. pitanje, MORATE odgovoriti točnim nizom znakova "ANALYSIS_READY". Nemojte dodavati nikakav drugi tekst.
+5.  Kada se od vas zatraži da generirate konačnu analizu, vaš izlaz mora biti sveobuhvatan izvještaj u Markdown formatu, podijeljen u tri dijela:
+    a. **Analiza odabranog vozila:** Detaljna analiza početnog automobila na temelju korisnikovih odgovora.
+    b. **Prijedlozi alternativnih modela:** Predložite 1-2 druga relevantna modela automobila koji bi također odlično odgovarali korisniku, uz objašnjenje zašto. Koristite svoje znanje o tržišnim trendovima.
+    c. **Usporedna tablica:** Markdown tablica koja uspoređuje ključne specifikacije početnog automobila i vaših predloženih alternativa. Uključite stupce kao što su 'Model', 'Cijena (EUR)', 'Potrošnja (l/100km)', 'Glavne značajke' i 'Preporuka'.
+6.  Sva komunikacija i konačni izvještaj moraju biti na hrvatskom jeziku.
   `;
 
   constructor() {
-    if (!process.env.API_KEY) {
-      throw new Error("API_KEY environment variable not set. Please set it in your environment.");
-    }
     this.ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
   }
 
@@ -57,7 +57,7 @@ Instructions:
     });
     
     // The user doesn't see this prompt, it's just to kickstart the conversation with the model.
-    const initialPrompt = `The user is interested in a ${make} ${model}. Please generate the first question to ask them.`;
+    const initialPrompt = `Korisnik je zainteresiran za ${make} ${model}. Molim te, generiraj prvo pitanje koje ćeš mu postaviti.`;
     const result = await chat.sendMessage({ message: initialPrompt });
     return result.text;
   }
@@ -69,7 +69,7 @@ Instructions:
 
     if (!lastUserMessage || lastUserMessage.role !== 'user') {
         // This should not happen in the normal flow.
-        throw new Error('Invalid chat history: last message is not from user');
+        throw new Error('Nevažeća povijest razgovora: zadnja poruka nije od korisnika');
     }
 
     const chat = this.createChatWithHistory(historyToRestore);
@@ -81,7 +81,7 @@ Instructions:
   async generateAnalysis(chatHistory: ChatMessage[], make: string, model: string): Promise<string> {
     const chat = this.createChatWithHistory(chatHistory);
     // This prompt is sent after the conversation is finished to get the final summary.
-    const analysisPrompt = `Based on our entire conversation, please generate the final analysis for the ${make} ${model}.`;
+    const analysisPrompt = `Na temelju cijelog našeg razgovora, molim vas generirajte konačnu, detaljnu analizu za ${make} ${model} i predložite alternative prema uputama u sistemskom promptu. Početni interes korisnika bio je za ${make} ${model}. Strukturirajte izlaz u tri tražena dijela.`;
     const result = await chat.sendMessage({ message: analysisPrompt });
     return result.text;
   }
