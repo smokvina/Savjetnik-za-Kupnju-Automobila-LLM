@@ -1,3 +1,4 @@
+
 import { Component, ChangeDetectionStrategy, signal, inject, effect, viewChild, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GeminiService } from './services/gemini.service';
@@ -38,7 +39,7 @@ export class AppComponent {
     const model = modelInput.value.trim();
 
     if (!make || !model) {
-      this.errorMessage.set('Molimo unesite marku i model.');
+      this.errorMessage.set('Please enter both a make and a model.');
       return;
     }
     this.errorMessage.set(null);
@@ -52,7 +53,7 @@ export class AppComponent {
       this.chatHistory.set([{ role: 'model', content: firstQuestion }]);
       this.questionCount.set(1);
     } catch (e) {
-      this.chatHistory.set([{ role: 'model', content: 'Došlo je do pogreške. Molimo osvježite stranicu i pokušajte ponovno.' }]);
+      this.chatHistory.set([{ role: 'model', content: 'An error occurred. Please refresh and try again.' }]);
       console.error(e);
     } finally {
       this.isLoading.set(false);
@@ -79,7 +80,7 @@ export class AppComponent {
         this.questionCount.update(c => c + 1);
       }
     } catch (e) {
-      this.chatHistory.update(h => [...h, { role: 'model', content: 'Došlo je do pogreške prilikom obrade vašeg zahtjeva.' }]);
+      this.chatHistory.update(h => [...h, { role: 'model', content: 'An error occurred processing your request.' }]);
       console.error(e);
     } finally {
       this.isLoading.set(false);

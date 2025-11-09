@@ -1,5 +1,5 @@
 {
-  "name": "Savjetnik za Kupnju Automobila LLM",
-  "description": "Savjetnik pokretan umjetnom inteligencijom koji postavlja ciljana pitanja kako bi vam pomogao odabrati savršenu inačicu modela automobila. Pruža detaljnu analizu ukupnih troškova vlasništva, pouzdanosti i najbolje opreme za vaše potrebe.",
+  "name": "BestBuyCar Advisor LLM",
+  "description": "An AI-powered advisor that asks targeted questions to help you choose the perfect car model iteration. It provides a detailed analysis of total cost of ownership, reliability, and the best trim for your needs.",
   "requestFramePermissions": []
 }
