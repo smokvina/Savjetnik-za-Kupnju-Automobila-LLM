@@ -1,4 +1,3 @@
-
 <main class="bg-gray-900 text-gray-200 min-h-screen flex flex-col antialiased">
   
   <header class="bg-gray-800/50 backdrop-blur-sm border-b border-gray-700 sticky top-0 z-10">
@@ -6,7 +5,7 @@
       <svg class="w-8 h-8 text-indigo-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 0 1-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h.008M5.85 12.75a.75.75 0 1 0-1.5 0 .75.75 0 0 0 1.5 0Zm4.5 0a.75.75 0 1 0-1.5 0 .75.75 0 0 0 1.5 0Zm4.5 0a.75.75 0 1 0-1.5 0 .75.75 0 0 0 1.5 0Zm-9.75 4.875c.03-.879.355-1.705.93-2.348m11.22.25c.292.428.528.91.684 1.426M5.85 12.75A2.25 2.25 0 0 1 8.1 10.5h7.8a2.25 2.25 0 0 1 2.25 2.25m-12.3 4.875A2.25 2.25 0 0 1 5.85 15h2.25a2.25 2.25 0 0 1 2.25 2.25m-2.25-2.25a2.25 2.25 0 0 0-2.25 2.25M15 12.75a2.25 2.25 0 0 1 2.25-2.25h.35a2.25 2.25 0 0 1 2.25 2.25m-2.6 4.875c.381-.92.64-1.933.64-3V12.75m-6.354 5.25a2.25 2.25 0 0 0-2.25-2.25H6.354a2.25 2.25 0 0 0-2.25 2.25" />
       </svg>
-      <h1 class="text-xl font-bold text-gray-100 tracking-tight">BestBuyCar Advisor <span class="text-indigo-400">LLM</span></h1>
+      <h1 class="text-xl font-bold text-gray-100 tracking-tight">BestBuyCar Savjetnik <span class="text-indigo-400">LLM</span></h1>
     </div>
   </header>
   
@@ -15,16 +14,16 @@
 
     @if (step() === 'initial') {
       <div class="flex flex-col items-center justify-center text-center p-8 rounded-lg bg-gray-800/50 border border-gray-700 h-full">
-          <h2 class="text-3xl font-extrabold text-white sm:text-4xl mb-2">Find Your Perfect Car Match</h2>
-          <p class="text-lg text-gray-400 mb-8 max-w-lg">Enter a car make and model to begin your personalized AI consultation.</p>
+          <h2 class="text-3xl font-extrabold text-white sm:text-4xl mb-2">Pronađite svoj savršeni automobil</h2>
+          <p class="text-lg text-gray-400 mb-8 max-w-lg">Unesite marku i model automobila kako biste započeli personalizirano AI savjetovanje.</p>
           <div class="w-full max-w-md space-y-4">
-            <input #makeInput type="text" placeholder="e.g., Toyota" class="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-md focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition" (keydown.enter)="startAdvisor(makeInput, modelInput)">
-            <input #modelInput type="text" placeholder="e.g., Camry" class="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-md focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition" (keydown.enter)="startAdvisor(makeInput, modelInput)">
+            <input #makeInput type="text" placeholder="npr., Toyota" class="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-md focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition" (keydown.enter)="startAdvisor(makeInput, modelInput)">
+            <input #modelInput type="text" placeholder="npr., Camry" class="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-md focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition" (keydown.enter)="startAdvisor(makeInput, modelInput)">
             @if(errorMessage()) {
               <p class="text-red-400 text-sm">{{ errorMessage() }}</p>
             }
             <button (click)="startAdvisor(makeInput, modelInput)" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-4 rounded-md transition duration-300 ease-in-out transform hover:scale-105">
-              Start Advising
+              Započni savjetovanje
             </button>
           </div>
       </div>
@@ -42,7 +41,7 @@
               </svg>
             </div>
             <div class="relative max-w-xl px-4 py-3 rounded-lg shadow-md bg-gray-800 text-gray-400 italic">
-              Thinking...
+              Razmišljam...
             </div>
           </div>
         }
@@ -54,7 +53,7 @@
           <div class="flex items-center space-x-3">
             <input #promptInput type="text"
               class="flex-grow bg-gray-900 border border-gray-600 rounded-full py-3 px-5 text-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:opacity-50"
-              placeholder="Type your answer..."
+              placeholder="Upišite svoj odgovor..."
               [disabled]="isLoading()"
               (keydown.enter)="sendMessage(promptInput)">
             <button (click)="sendMessage(promptInput)" [disabled]="isLoading()" class="bg-indigo-600 text-white rounded-full p-3 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-indigo-500 disabled:bg-indigo-800 disabled:cursor-not-allowed">
@@ -65,7 +64,7 @@
           </div>
         } @else if (step() === 'analysis') {
             <div class="text-center p-2 bg-green-900/50 border border-green-700 rounded-lg">
-              <p class="font-semibold text-green-300">Analysis complete. Thank you for using the BestBuyCar Advisor!</p>
+              <p class="font-semibold text-green-300">Analiza je gotova. Hvala što koristite BestBuyCar Savjetnika!</p>
             </div>
         }
       </div>
